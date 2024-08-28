@@ -1,0 +1,34 @@
+<li
+  [attr.data-testid]="'todo-item'"
+  [class.completed]="todo.completed"
+  [class.editing]="isEditing"
+>
+  <div class="view">
+    <input
+      class="toggle"
+      type="checkbox"
+      (click)="toggleTodo()"
+      [checked]="todo.completed"
+    />
+    <label [attr.data-testid]="'todo-title'" (dblclick)="startEdit()">{{
+      todo.title
+    }}</label>
+    <button class="destroy" (click)="removeTodo()"></button>
+  </div>
+  @if (isEditing) {
+  <div class="input-container">
+    <input
+      #todoInputRef
+      class="edit"
+      aria-label="Edit"
+      id="edit-todo-input"
+      [(ngModel)]="title"
+      (focus)="handleFocus($event)"
+      (blur)="handleBlur($event)"
+      (keyup.enter)="updateTodo()"
+      (keypress.Escape)="finishEdit()"
+    />
+    <label class="visually-hidden" htmlFor="edit-todo-input"></label>
+  </div>
+  }
+</li>
